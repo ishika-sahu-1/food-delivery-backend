@@ -14,10 +14,13 @@ export class RestaurantHours {
     day_of_week: 'MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT' | 'SUN'
 
     @Column({ type: 'time', name: 'open_time' })
-    open_time: Timestamp
+    open_time: string
 
     @Column({ type: 'time', name: 'close_time' })
-    close_time: Timestamp
+    close_time: string
+
+    @Column({ type: 'boolean', name: 'is_open' })
+    is_open: boolean
 
     @ManyToOne(() => Restaurant, (restaurant) => restaurant.restaurantHours, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'restaurant_id' })

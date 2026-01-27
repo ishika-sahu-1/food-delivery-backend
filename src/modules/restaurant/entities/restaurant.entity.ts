@@ -4,6 +4,13 @@ import { Order } from "src/modules/order/entities/order.entity";
 import { RestaurantHours } from "./restaurant_hours.entity";
 import { Dish } from "src/modules/dish/entities/dish.entity";
 
+export enum RestaurantStatus {
+
+    OPEN = 'OPEN',
+    TEMP_CLOSED = 'TEMP_CLOSEED',
+    PERMANENTLY_CLOSED = 'PERMANENTLY_CLOSED',
+}
+
 @Entity('restaurants')
 export class Restaurant {
 
@@ -19,8 +26,13 @@ export class Restaurant {
     @Column({ type: 'decimal', precision: 11, scale: 8, nullable: true })
     lng: number
 
-    @Column({ type: 'boolean', default: false, name: 'is_open' })
-    isOpen: boolean
+    @Column({
+        type: 'enum',
+        enum: RestaurantStatus,
+        default: RestaurantStatus.OPEN,
+        name: 'status'
+    })
+    status: RestaurantStatus;
 
     @Column({ type: 'decimal', nullable: true, precision: 2, scale: 1, name: 'rating' })
     rating: number
@@ -40,7 +52,7 @@ export class Restaurant {
     })
     restaurantHours: RestaurantHours[];
 
-     @OneToMany(() => Dish, (dish) => dish.restaurant, {
+    @OneToMany(() => Dish, (dish) => dish.restaurant, {
         cascade: true,
     })
     dish: Dish[];
