@@ -18,6 +18,9 @@ export class Dish {
 
     @Column({ type: 'decimal', nullable: false, name: 'price' })
     price: number
+    
+    @Column({ type: 'decimal', nullable: false, name: 'quantity' })
+    quantity: number
 
     @Column({ type: 'boolean', name: 'is_veg', default: true })
     isVeg: boolean
@@ -32,7 +35,6 @@ export class Dish {
         cascade: true
     })
     orderItems: OrderItems[];
-
 
     @OneToMany(() => DishImage, (image) => image.dish, {
         cascade: true

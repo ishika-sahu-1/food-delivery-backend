@@ -77,18 +77,16 @@ export class CreateRestaurantDto {
 
 }
 
-export class GetAllRestaurantDto {
+export class ListDto {
 
     @ApiProperty()
     @IsNumber()
     @IsOptional()
-    @Min(1)
     page?: number = 1;
 
     @ApiProperty()
     @IsNumber()
     @IsOptional()
-    @Min(1)
     limit?: number = 10;
 
     @ApiProperty()

@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { CreateRestaurantDto, CreateRestaurantHoursDto, GetAllRestaurantDto, ImageDto } from './dto/create-restaurant.dto';
+import { CreateRestaurantDto, CreateRestaurantHoursDto, ImageDto, ListDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Restaurant, RestaurantStatus } from './entities/restaurant.entity';
 import { DataSource, EntityManager, Repository } from 'typeorm';
 import { RestaurantImages } from './entities/restaurant_images.entity';
 import { RestaurantHours } from './entities/restaurant_hours.entity';
-import { Transactional } from 'typeorm-transactional';
 
 @Injectable()
 export class RestaurantService {
@@ -89,7 +88,7 @@ export class RestaurantService {
     return this.restaurantRepo.findOneBy({ id });
   }
 
-  async getAllRestaurantList(getAllRestaurantDto: GetAllRestaurantDto) {
+  async getAllRestaurantList(getAllRestaurantDto: ListDto) {
 
     const page = getAllRestaurantDto.page || 1;
     const limit = Math.min(getAllRestaurantDto.limit || 10, 50); // max 50 items
@@ -105,7 +104,7 @@ export class RestaurantService {
 
     // Name filter
     if (name) {
-      query.andWhere('restaurant.name ILIKE :name', { name: `%${name}%` }); // Postgres
+      query.andWhere('restaurant.name LIKE :name', { name: `%${name}%` }); // Postgres
     }
 
     // Minimum rating filter
@@ -131,7 +130,6 @@ export class RestaurantService {
       },
     };
   }
-
 
   findOne(id: number) {
     return `This action returns a #${id} restaurant`;

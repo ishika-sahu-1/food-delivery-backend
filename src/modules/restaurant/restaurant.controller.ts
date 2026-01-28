@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { RestaurantService } from './restaurant.service';
-import { CreateRestaurantDto, GetAllRestaurantDto } from './dto/create-restaurant.dto';
+import { CreateRestaurantDto, ListDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 
 @Controller('restaurant')
@@ -28,9 +28,10 @@ export class RestaurantController {
   }
 
   @Post('getAllRestaurantList')
-  async getAllRestaurantList(@Body() getAllRestaurantDto: GetAllRestaurantDto) {
+  async getAllRestaurantList(@Body() getAllRestaurantDto: ListDto) {
     return this.restaurantService.getAllRestaurantList(getAllRestaurantDto);
   }
+
   // @Get()
   // findAll() {
   //   return this.restaurantService.findAll();
