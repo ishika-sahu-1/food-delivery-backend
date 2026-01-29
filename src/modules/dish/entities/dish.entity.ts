@@ -2,6 +2,7 @@ import { OrderItems } from "src/modules/order/entities/order_items.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { DishImage } from "./dish_image.entity";
 import { Restaurant } from "src/modules/restaurant/entities/restaurant.entity";
+import { CartItem } from "src/modules/cart/entities/cart_item.entity";
 
 @Entity('dishes')
 export class Dish {
@@ -35,6 +36,11 @@ export class Dish {
         cascade: true
     })
     orderItems: OrderItems[];
+
+    @OneToMany(() => CartItem, (cartItem) => cartItem.dish, {
+        cascade: true
+    })
+    cartItem: CartItem[];
 
     @OneToMany(() => DishImage, (image) => image.dish, {
         cascade: true

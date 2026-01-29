@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Order } from 'src/modules/order/entities/order.entity';
 import { CustomerDevice } from './customer_device.entity';
+import { Cart } from 'src/modules/cart/entities/cart.entity';
 
 @Entity('customers')
 export class Customer {
@@ -20,6 +21,9 @@ export class Customer {
     @Column({ type: 'boolean', default: true })
     isActive: boolean
 
+    @OneToOne(() => Cart , (cart) => cart.customer)
+    cart : Cart
+    
     @OneToMany(() => CustomerDevice, (device) => device.customer, {
         cascade: true,
     })

@@ -173,7 +173,9 @@ export class DishService {
     }
   }
 
-  
+  async findById(id : string){
+    return await this.dishRepo.findOne({where : {id : id}})
+  }
   findAll() {
     return `This action returns all dish`;
   }
