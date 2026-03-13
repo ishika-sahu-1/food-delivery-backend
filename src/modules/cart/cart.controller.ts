@@ -1,16 +1,26 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CartService } from './cart.service';
-import { CreateCartDto } from './dto/create-cart.dto';
+import { CreateCartDto, UpdateItemQuantity } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
 
 @Controller('cart')
 export class CartController {
   constructor(private readonly cartService: CartService) {}
 
-  // @Post()
-  // create(@Body() createCartDto: CreateCartDto) {
-  //   return this.cartService.create(createCartDto);
-  // }
+  @Post('addItemToCart')
+  addItemToCart(@Body() createCartDto: CreateCartDto) {
+    return this.cartService.addItemToCart(createCartDto);
+  }
+
+  @Post('incrementAndDecrementQuantity/:customerId')
+  incrementAndDecrementQuantity(@Param('customerId') customerId : string , @Body() updateItemQuantity : UpdateItemQuantity){
+    return this.cartService.incrementAndDecrementQuantity(customerId, updateItemQuantity);
+  }
+
+  @Post('removeItemFromCart/:customerId/:dishId')
+  removeItemFromCart(@Param('customerId') customerId: string, @Param('dishId') dishId: string) {
+    return this.cartService.removeItemFromCart(customerId, dishId);
+  }
 
   @Get()
   findAll() {
