@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Restaurant } from "./restaurant.entity";
 
-@Entity('restaurant_entity')
+@Entity('restaurants_images')
 export class RestaurantImages {
 
     @PrimaryGeneratedColumn('uuid')

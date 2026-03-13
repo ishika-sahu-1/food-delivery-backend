@@ -29,5 +29,5 @@ export class CreateCustomerDto {
     @IsEnum(Platform)
     platform: Platform;
 
-
+    
 }

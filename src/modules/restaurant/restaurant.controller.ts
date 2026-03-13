@@ -1,21 +1,41 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { RestaurantService } from './restaurant.service';
-import { CreateRestaurantDto } from './dto/create-restaurant.dto';
+import { CreateRestaurantDto, ListDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 
 @Controller('restaurant')
 export class RestaurantController {
-  constructor(private readonly restaurantService: RestaurantService) {}
+  constructor(private readonly restaurantService: RestaurantService) { }
 
   @Post()
-  create(@Body() createRestaurantDto: CreateRestaurantDto) {
-    return this.restaurantService.create(createRestaurantDto);
+  createRestaurant(@Body() createRestaurantDto: CreateRestaurantDto) {
+    return this.restaurantService.createRestaurant(createRestaurantDto);
   }
 
-  @Get()
-  findAll() {
-    return this.restaurantService.findAll();
+  @Post(':id/close')
+  async temporarilyCloseRestaurant(@Param('id') id: string) {
+    return this.restaurantService.temporarilyCloseRestaurant(id);
   }
+
+  @Post(':id/re-open')
+  async reOpenRestaurant(@Param('id') id: string) {
+    return this.restaurantService.reOpenRestaurant(id);
+  }
+
+  @Post(':id/delete')
+  async deleteRestaurantPermanently(@Param('id') id: string) {
+    return this.restaurantService.deleteRestaurantPermanently(id);
+  }
+
+  @Post('getAllRestaurantList')
+  async getAllRestaurantList(@Body() getAllRestaurantDto: ListDto) {
+    return this.restaurantService.getAllRestaurantList(getAllRestaurantDto);
+  }
+
+  // @Get()
+  // findAll() {
+  //   return this.restaurantService.findAll();
+  // }
 
   @Get(':id')
   findOne(@Param('id') id: string) {

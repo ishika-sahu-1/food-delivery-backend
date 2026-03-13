@@ -9,5 +9,6 @@ import { DishImage } from './entities/dish_image.entity';
   imports : [TypeOrmModule.forFeature([Dish , DishImage])],
   controllers: [DishController],
   providers: [DishService],
+  exports : [DishService]
 })
 export class DishModule {}
