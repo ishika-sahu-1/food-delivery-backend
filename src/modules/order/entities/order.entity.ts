@@ -4,6 +4,7 @@ import { Customer } from "src/modules/customer/entities/customer.entity";
 import { Restaurant } from "src/modules/restaurant/entities/restaurant.entity";
 import { DeliveryPartner } from "src/modules/delivery/entities/delivery_partner.entity";
 import { CouponUsage } from "src/modules/coupon/entities/coupon_usage";
+import { Coupon } from "src/modules/coupon/entities/coupon.entity";
 
 export enum OrderStatus {
     CREATED = 'CREATED',
@@ -58,6 +59,9 @@ export class Order {
     @Column({ type: 'decimal', precision: 10, scale: 2 })
     total: number;
 
+    @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+    final_amount : number;   
+
     // ---------------- OTP ----------------
 
     @Column({ type: 'varchar', length: 255, nullable: true })
@@ -65,6 +69,10 @@ export class Order {
 
     @Column({ type: 'timestamp', nullable: true })
     otp_expires_at: Date;
+
+    @ManyToOne(() => Coupon, (coupon) => coupon.orders)
+    @JoinColumn({ name: 'coupon_id' })
+    coupon: Coupon;
 
     @OneToMany(() => OrderItems, (order) => order.order)
     OrderItems: OrderItems[];

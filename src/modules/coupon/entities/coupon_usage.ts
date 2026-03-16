@@ -13,6 +13,9 @@ export class CouponUsage {
     @CreateDateColumn({ name: 'used_at' })
     usedAt: Date
 
+    @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
+    discount_amount: number;
+    
     @ManyToOne(() => Coupon, (coupon) => coupon.couponUsages, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'coupon_id' })
     coupon: Coupon

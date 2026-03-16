@@ -7,18 +7,27 @@ export enum discountType {
     FREE_DELIVERY = 'FREE_DELIVERY'
 }
 
+export enum couponType {
+    WELCOME = 'WELCOME',
+    GENERAL = 'GENERAL'
+}
+
 export class CreateCouponDto {
 
     @ApiProperty()
     @IsString()
     code: string;
 
+    @ApiProperty({ enum: couponType })
+    @IsEnum(couponType)
+    couponType: couponType;
+
     @ApiProperty()
     @IsString()
     @IsOptional()
     description: string;
 
-    @ApiProperty({enum : discountType})
+    @ApiProperty({ enum: discountType })
     @IsEnum(discountType)
     discount_type: discountType;
 
@@ -27,7 +36,7 @@ export class CreateCouponDto {
     discount_value: number;
 
     @ApiProperty()
-        @IsNumber()
+    @IsNumber()
     @IsOptional()
     min_order_amount: number;
 

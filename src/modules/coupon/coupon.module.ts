@@ -5,9 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Coupon } from './entities/coupon.entity';
 import { CouponUsage } from './entities/coupon_usage';
 import { OrderModule } from '../order/order.module';
+import { CartModule } from '../cart/cart.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Coupon, CouponUsage]) , OrderModule],
+  imports: [TypeOrmModule.forFeature([Coupon, CouponUsage]) , OrderModule , CartModule],
   controllers: [CouponController],
   providers: [CouponService],
 })

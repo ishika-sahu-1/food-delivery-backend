@@ -10,5 +10,6 @@ import { DishModule } from '../dish/dish.module';
   imports : [TypeOrmModule.forFeature([Cart , CartItem]) , DishModule],
   controllers: [CartController],
   providers: [CartService],
+  exports : [CartService]
 })
 export class CartModule {}

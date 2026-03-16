@@ -12,15 +12,15 @@ export class CouponController {
     return this.couponService.create(createCouponDto);
   }
 
-  @Get()
-  findAll() {
-    return this.couponService.findAll();
+  @Get('activeCoupons')
+  getAllActiveCoupons() {
+    return this.couponService.getAllActiveCoupons();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.couponService.findOne(+id);
-  }
+ @Post('removeCoupon')
+ removeCoupon(@Body('couponId') couponId: number) {
+  return this.couponService.remove(couponId);
+ }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCouponDto: UpdateCouponDto) {
