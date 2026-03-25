@@ -5,7 +5,7 @@ import { UpdateCouponDto } from './dto/update-coupon.dto';
 
 @Controller('coupon')
 export class CouponController {
-  constructor(private readonly couponService: CouponService) {}
+  constructor(private readonly couponService: CouponService) { }
 
   @Post('add')
   create(@Body() createCouponDto: CreateCouponDto) {
@@ -17,10 +17,15 @@ export class CouponController {
     return this.couponService.getAllActiveCoupons();
   }
 
- @Post('removeCoupon')
- removeCoupon(@Body('couponId') couponId: number) {
-  return this.couponService.remove(couponId);
- }
+  @Post('removeCoupon')
+  removeCoupon(@Body('couponId') couponId: number) {
+    return this.couponService.remove(couponId);
+  }
+
+  @Post('applyCoupon/:cartId/:couponId')
+  applyCoupon(@Param('cartId') cartId: string, @Param('couponId') couponId: string) {
+    return this.couponService.applyCoupon(cartId, couponId);
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCouponDto: UpdateCouponDto) {

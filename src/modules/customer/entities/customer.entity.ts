@@ -1,14 +1,19 @@
-import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Order } from 'src/modules/order/entities/order.entity';
 import { CustomerDevice } from './customer_device.entity';
 import { Cart } from 'src/modules/cart/entities/cart.entity';
 import { CouponUsage } from 'src/modules/coupon/entities/coupon_usage';
+import { User } from 'src/modules/user/entities/user.entity';
 
 @Entity('customers')
 export class Customer {
 
     @PrimaryGeneratedColumn('uuid')
     id: string
+
+    @OneToOne(() => User)
+    @JoinColumn({ name: 'user_id' })
+    user: User;
 
     @Column({ type: 'text', name: 'customer_name', nullable: true })
     name: string

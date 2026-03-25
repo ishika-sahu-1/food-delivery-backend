@@ -114,7 +114,7 @@ export class CartService {
         cartItem.price = cartItem.quantity * cartItem.dish.price;
         cartItem.subtotal = cartItem.quantity * cartItem.dish.price;
         await this.cartItemRepo.save(cartItem);
-       await this.recalculateCart(cart.id);
+        await this.recalculateCart(cart.id);
         return {
           message: 'Item quantity incremented successfully',
           updatedCart: await this.cartRepo.findOne({
@@ -216,7 +216,7 @@ export class CartService {
           'customer',
         ],
       })
-    };  
+    };
   }
 
   async recalculateCart(cartId: string) {
@@ -235,7 +235,7 @@ export class CartService {
   }
 
   findAll() {
-   return this.cartRepo.find({
+    return this.cartRepo.find({
       relations: [
         'cartItem',
         'cartItem.dish',
@@ -243,10 +243,23 @@ export class CartService {
       ],
     });
   }
-  
 
-  findOne(id: number) {
-    return `This action returns a #${id} cart`;
+  async findById(id: string) {
+
+    const cart = await this.cartRepo.findOne({
+      where: { id },
+      relations: [
+        'cartItem',
+        'cartItem.dish',
+        'customer',
+      ],
+    });
+
+    if (!cart) {
+      throw new NotFoundException('Cart not found');
+    }
+
+    return cart;
   }
 
   update(id: number, updateCartDto: UpdateCartDto) {

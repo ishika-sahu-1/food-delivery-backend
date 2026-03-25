@@ -57,8 +57,9 @@ export class Coupon {
     @Column({ type: 'boolean', default: true })
     is_active: boolean;
 
-    @OneToMany(() => Order, (order) => order.coupon , {cascade : true})
+    @OneToMany(() => Order, (order) => order.coupon, { cascade: true })
     orders: Order[];
+    
     // One-to-many relationship with the CouponUsage entity, allowing for cascading operations
     @OneToMany(() => CouponUsage, (couponUsage) => couponUsage.coupon, {
         cascade: true,

@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Restaurant } from "./restaurant.entity";
+import { RestaurantBranch } from "./restaurant_branch.entity";
 
 @Entity('restaurants_images')
 export class RestaurantImages {
@@ -13,7 +14,7 @@ export class RestaurantImages {
     @Column({ type: 'boolean', default: false, nullable: false, name: 'is_cover' })
     is_Cover: boolean
 
-    @ManyToOne(() => Restaurant, (restaurant) => restaurant.restaurantImages, { onDelete: 'CASCADE' })
+    @ManyToOne(() => RestaurantBranch, (restaurant) => restaurant.restaurantImages, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'restaurant_id' })
     restaurant: Restaurant
 
